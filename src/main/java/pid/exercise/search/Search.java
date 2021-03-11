@@ -81,11 +81,10 @@ public class Search {
             return -1;
         } else if (array[midPoint] < value) {
             leftPoint = midPoint + 1;
-            return binarySearchRecursiveHelper(array, value, leftPoint, rightPoint);
         } else {
             rightPoint = midPoint - 1;
-            return binarySearchRecursiveHelper(array, value, leftPoint, rightPoint);
         }
+        return binarySearchRecursiveHelper(array, value, leftPoint, rightPoint);
     }
 }
 
