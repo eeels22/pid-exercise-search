@@ -11,6 +11,7 @@ public class Search {
 
     /**
      * Static method for linear search.
+     *
      * @param array an int array to be searched through
      * @param value what we are searching for
      * @return int - the index of the value if found or -1 if not found
@@ -25,14 +26,67 @@ public class Search {
         return -1;
     }
 
+    /**
+     * Static method for an binary search (iterative).
+     *
+     * @param array an int array in sorted ascending order to be searched through
+     * @param value what we are searching for
+     * @return int - the index of the value if found or -1 if not found
+     */
     public static int binarySearch(int[] array, int value) {
-        // TODO Implement iterative binary search
-        return 0;
+        int leftPoint = 0; //search range starts as first element to...
+        int rightPoint = array.length - 1; // ...last element
+        while (leftPoint <= rightPoint) {
+            int midPoint = (leftPoint + rightPoint) / 2;
+            if (array[midPoint] < value) {
+                leftPoint = midPoint + 1;
+            } else if (array[midPoint] > value) {
+                rightPoint = midPoint - 1;
+            } else
+                return midPoint; // value found at midPoint
+        }
+        return -1; // value not found in array
     }
 
+    /**
+     * Static method for an binary search (recursive).
+     *
+     * @param array an int array in sorted ascending order to be searched through
+     * @param value what we are searching for
+     * @return int - the index of the value if found or -1 if not found
+     */
     public static int binarySearchRecursive(int[] array, int value) {
-        // TODO Implement recursive binary search
-        return 0;
+        if (array.length == 0) {
+            return -1;
+        }
+        int leftPoint = 0; // starting search range: from first element to...
+        int rightPoint = array.length - 1; // ...last element
+        return binarySearchRecursiveHelper(array, value, leftPoint, rightPoint);
     }
 
+    /**
+     * Static helper method for an binary search (recursive).
+     *
+     * @param array an int array in sorted ascending order to be searched through
+     * @param value what we are searching for
+     * @param leftPoint lower bound index of search range
+     * @param rightPoint upper bound index of search range
+     * @return int - the index of the value if found or -1 if not found
+     */
+    public static int binarySearchRecursiveHelper(int[] array, int value, int leftPoint, int rightPoint) {
+        int midPoint = (leftPoint + rightPoint) / 2;
+        if (array[midPoint] == value) { // value found
+            return midPoint;
+        } else if (leftPoint == rightPoint) { // nothing left to search, not found
+            return -1;
+        } else if (array[midPoint] < value) {
+            leftPoint = midPoint + 1;
+            return binarySearchRecursiveHelper(array, value, leftPoint, rightPoint);
+        } else {
+            rightPoint = midPoint - 1;
+            return binarySearchRecursiveHelper(array, value, leftPoint, rightPoint);
+        }
+    }
 }
+
+
